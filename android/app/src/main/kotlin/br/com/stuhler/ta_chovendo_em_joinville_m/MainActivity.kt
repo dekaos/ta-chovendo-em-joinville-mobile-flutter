@@ -1,0 +1,13 @@
+package br.com.stuhler.ta_chovendo_em_joinville_m
+
+import android.os.Bundle
+
+import io.flutter.app.FlutterActivity
+import io.flutter.plugins.GeneratedPluginRegistrant
+
+class MainActivity: FlutterActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    GeneratedPluginRegistrant.registerWith(this)
+  }
+}
