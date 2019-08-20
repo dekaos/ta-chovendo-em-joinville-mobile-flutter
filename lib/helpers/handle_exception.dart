@@ -1,8 +1,10 @@
+import 'package:meta/meta.dart';
+
 class HandleException implements Exception {
   String exception;
   HandleException(this.exception);
 
-  String errorMessageByCode (int code) {
+  String _errorMessageByCode ({@required int code}) {
     Map status = Map();
     status[400] = 'Erro ao processar requisição.';
     status[401] = 'Usuário não autorizado.';
@@ -11,5 +13,18 @@ class HandleException implements Exception {
     status[503] = 'Serviço indisponível.';
 
     return status[code];
+  }
+
+  void checkStatusCode ({@required int statusCode, @required dynamic data}) {
+    if (statusCode < 200 || statusCode >= 400) {
+      int code;
+
+      if (data.containsKey('code')) {
+        String responseAPICode = data['code'].toString();
+        code = int.tryParse(responseAPICode) ?? 400;
+      }
+
+      throw HandleException(_errorMessageByCode(code: code));
+    }
   }
 }
